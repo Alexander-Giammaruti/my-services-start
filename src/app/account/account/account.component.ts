@@ -13,7 +13,7 @@ export class AccountComponent {
   @Input() id: number;
 
   constructor(
-    private loggingService: LoggingService,
+    //private loggingService: LoggingService,
     private accountService: AccountService) {}
 
   onSetTo(status: string) {

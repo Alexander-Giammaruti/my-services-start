@@ -1,22 +1,21 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
+import { AccountService } from 'src/app/account.service';
 import { LoggingService } from '../../logging.service';
 
 @Component({
   selector: 'app-new-account',
   templateUrl: './new-account.component.html',
   styleUrls: ['./new-account.component.css'],
-  providers: [LoggingService]
+  providers: [LoggingService,/* AccountService */] // this created a unique instance of the account array. This behavior is not desired for this application
 })
 export class NewAccountComponent {
-  @Output() accountAdded = new EventEmitter<{name: string, status: string}>();
   
-  constructor(private loggingService: LoggingService) {}
+  constructor(
+    private loggingService: LoggingService,
+    private accountService: AccountService) {}
 
   onCreateAccount(accountName: string, accountStatus: string) {
-    this.accountAdded.emit({
-      name: accountName,
-      status: accountStatus
-    });
+    this.accountService.addAccount(accountName, accountStatus);
     this.loggingService.logStatusChange(accountStatus);
   }
 }
